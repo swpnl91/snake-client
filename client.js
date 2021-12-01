@@ -17,12 +17,12 @@ const connect = function () {
     conn.write('Name: SSP'); // code that does something when the connection is first established
   });
 
-  conn.on('data', (data) => {
+  conn.on('data', (data) => {   // code to let us know what server says
     console.log('Server says: ', data);
   });
 
-  conn.on('end', (data) => {
-    console.log('disconnected from the server');
+  conn.on('end', () => {     // code to display message after getting disconnected
+    console.log('Disconnected from the server');
   });
   
 
