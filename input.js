@@ -1,9 +1,10 @@
 const net = require("net");
 
-
+let connection;
 // setup interface to handle user input from stdin
 
-const setupInput = function () {
+const setupInput = (conn) => {
+  connection  = conn;
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding("utf8");
@@ -15,10 +16,27 @@ const setupInput = function () {
 };
 
 
-const handleUserInput = function (key) {
+const handleUserInput = function (data) {
   // your code here
-  if (key === '\u0003') {
+  if (data === '\u0003') {
+    console.log('Leaving...')
     process.exit();
+  }
+
+  if (data === 'w') {
+    connection.write("Move: up");
+  }
+
+  if (data === 'a') {
+    connection.write("Move: left");
+  }
+
+  if (data === 's') {
+    connection.write("Move: down");
+  }
+
+  if (data === 'd') {
+    connection.write("Move: right");
   }
 };
 
