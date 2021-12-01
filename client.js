@@ -17,10 +17,6 @@ const connect = function () {
     conn.write('Name: SSP'); // code that does something when the connection is first established
   });
 
-  conn.on("connect", () => {
-    conn.write('Move: up'); // code to tell server to move up
-  });
-
   conn.on('data', (data) => {   // code to let us know what server says
     console.log('Server says: ', data);
   });
