@@ -1,6 +1,12 @@
 const net = require("net");
+const {MOVE, MESG} = require("./constants");  // MOVE/MESG are objects
 
 let connection;
+let speed = 100;
+let movement;
+
+
+
 // setup interface to handle user input from stdin
 
 const setupInput = (conn) => {
@@ -23,7 +29,22 @@ const handleUserInput = function (data) {
     process.exit();
   }
 
-  if (data === 'w') {
+  for (const [ key, value ] of Object.entries(MOVE)) { // Object.entries(obj) returns an array with key/value pair
+    if (data === key) {
+      clearInterval(movement);    // to stop time
+      movement = setInterval(() => {  // to move snake continually
+        connection.write(value);
+      }, speed);
+    }
+  }
+
+  for (const [ key, value ] of Object.entries(MESG)) {
+    if (data === key) {
+      connection.write(value);
+    }  
+  }
+
+ /* if (data === 'w') {
     connection.write("Move: up");
   }
 
@@ -48,9 +69,9 @@ const handleUserInput = function (data) {
   }
 
   if (data === '3') {
-    connection.write("Say: Yummy!");
+    connection.write("Say: Yummy!"); 
   }
-
+*/
 
 };
 
